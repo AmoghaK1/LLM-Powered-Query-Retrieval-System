@@ -1,0 +1,16 @@
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+python-multipart==0.0.6
+google-generativeai
+python-dotenv
+nltk
+sentence-transformers
+faiss-cpu
+numpy
+requests
+PyMuPDF
+pdfplumber
+pandas
+python-docx
+pywin32
