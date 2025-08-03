@@ -57,13 +57,26 @@ def process_pdf_url(pdf_url: str) -> str:
         # Create temporary directory for processing
         temp_dir = tempfile.mkdtemp()
         
-        # Check if it's a local file path or URL
-        if os.path.exists(pdf_url):
-            # It's a local file
-            pdf_path = pdf_url
-        else:
+        # Check if it's a URL, local file path, or just a filename
+        if pdf_url.startswith(('http://', 'https://')):
             # It's a URL - download it
             pdf_path = download_pdf(pdf_url, temp_dir)
+        elif os.path.exists(pdf_url):
+            # It's a local file with full path
+            pdf_path = pdf_url
+        else:
+            # Check if it's in the documents folder
+            documents_dir = Path(__file__).parent / "documents"
+            potential_path = documents_dir / pdf_url
+            
+            if potential_path.exists():
+                pdf_path = str(potential_path)
+            else:
+                # Try relative path from current directory
+                if os.path.exists(pdf_url):
+                    pdf_path = pdf_url
+                else:
+                    raise FileNotFoundError(f"PDF not found: {pdf_url}. Checked: {potential_path}")
         
         # Extract content using existing PDF extractor
         folders = create_output_structure(pdf_path)
