@@ -134,8 +134,8 @@ Scripts/
 # *.json
 # *.txt
 
-# PDF files (uncomment if you don't want to track them)
-# *.pdf
+# PDF files (large files excluded from repo)
+*.pdf
 
 # Log files
 *.log
